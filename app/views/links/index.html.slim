@@ -2,9 +2,15 @@
 - @links.each do |link|
   h3= link_to link.title, link
   p
-    = "Submitted " + time_ago_in_words(link.created_at) + " ago by "
+    = " - Submitted " + time_ago_in_words(link.created_at) + " ago by "
     = User.find(link.user_id).email
+
+  .btn-group
+    = link_to "<span class='glyphicon glyphicon-menu-up'></span> Upvote ".html_safe + "#{link.get_upvotes.size}", like_link_path(link), method: :put, class: "btn btn-xs btn-default"
+    = link_to "<span class='glyphicon glyphicon-menu-down'></span> Downvote ".html_safe + "#{link.get_downvotes.size}", dislike_link_path(link), method: :put, class: "btn btn-xs btn-default"
+
+  | &nbsp;
   - if link.user == current_user
-    .btn-group
+    .btn-group.pull-right
       => link_to 'Edit', edit_link_path(link), class: "btn btn-xs btn-default"
       = link_to 'Destroy', link, method: :delete, data: { confirm: ('Are you sure?') }, class: "btn btn-xs btn-default"
