@@ -5,7 +5,8 @@
     = " - Submitted " + time_ago_in_words(link.created_at) + " ago by "
     = User.find(link.user_id).email
 
-  .btn-group
+  .btn-group.main_actions
+    = link_to "Visit Link", "#{link.url}" ,class: "btn btn-xs btn-default"
     = link_to "<span class='glyphicon glyphicon-menu-up'></span> Upvote ".html_safe + "#{link.get_upvotes.size}", like_link_path(link), method: :put, class: "btn btn-xs btn-default"
     = link_to "<span class='glyphicon glyphicon-menu-down'></span> Downvote ".html_safe + "#{link.get_downvotes.size}", dislike_link_path(link), method: :put, class: "btn btn-xs btn-default"
 

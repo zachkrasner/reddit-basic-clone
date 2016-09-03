@@ -17,3 +17,14 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+ .btn-group.main_actions .btn-xs {
+   padding-left: 10px;
+   padding-right: 10px;
+ }
+
+ .wrapper {
+   padding-top: 50px;
+   margin: 0 auto;
+   max-width: 800px;
+ }

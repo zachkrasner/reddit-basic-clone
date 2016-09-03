@@ -1,0 +1,32 @@
+h3= link_to @link.title, @link
+p
+  = " - Submitted " + time_ago_in_words(@link.created_at) + " ago by "
+  = User.find(@link.user_id).email
+
+.btn-group.main_actions
+  = link_to "Visit Link", "#{@link.url}" ,class: "btn btn-xs btn-default"
+  = link_to "<span class='glyphicon glyphicon-menu-up'></span> Upvote ".html_safe + "#{@link.get_upvotes.size}", like_link_path(@link), method: :put, class: "btn btn-xs btn-default"
+  = link_to "<span class='glyphicon glyphicon-menu-down'></span> Downvote ".html_safe + "#{@link.get_downvotes.size}", dislike_link_path(@link), method: :put, class: "btn btn-xs btn-default"
+
+| &nbsp;
+- if @link.user == current_user
+  .btn-group.pull-right
+    => link_to 'Edit', edit_link_path(@link), class: "btn btn-xs btn-default"
+    = link_to 'Destroy', @link, method: :delete, data: { confirm: ('Are you sure?') }, class: "btn btn-xs btn-default"
+
+
+br
+br
+br
+h3= "Comments (#{@link.comments.count})"
+
+= simple_form_for [@link, Comment.new] do |f|
+  = f.input :body, as: :text, label: false
+  = f.button :submit, class: 'btn btn-primary'
+
+- @link.comments.reverse.each do |comment|
+  hr
+  p
+    strong= "Posted " + time_ago_in_words(comment.created_at) + " ago by "
+    strong= comment.user.email
+  p= comment.body
