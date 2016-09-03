@@ -3,7 +3,7 @@
   h3= link_to link.title, link
   p
     = " - Submitted " + time_ago_in_words(link.created_at) + " ago by "
-    = User.find(link.user_id).email
+    = display_name(User.find(link.user_id))
 
   .btn-group.main_actions
     = link_to "Visit Link", "#{link.url}" ,class: "btn btn-xs btn-default"
