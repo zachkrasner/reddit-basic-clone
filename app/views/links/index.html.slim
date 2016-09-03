@@ -2,7 +2,7 @@
 - @links.each do |link|
   h3= link_to link.title, link
   p
-    = " - Submitted " + time_ago_in_words(link.created_at) + " ago by "
+    = "Submitted " + time_ago_in_words(link.created_at) + " ago by "
     = display_name(User.find(link.user_id))
 
   .btn-group.main_actions
